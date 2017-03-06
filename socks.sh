@@ -1,6 +1,6 @@
-local localPort="1092"
-local privateKey="$HOME/.ssh/socks_rsa"
-local clientKey="$HOME/.ssh/id_rsa"
+localPort="1092"
+privateKey="$HOME/.ssh/socks_rsa"
+clientKey="$HOME/.ssh/id_rsa"
 
 mkdir -p $(dirname $privateKey)
 ssh-keygen -f ${privateKey} -t rsa -N '' -C '' > /dev/null 2>&1

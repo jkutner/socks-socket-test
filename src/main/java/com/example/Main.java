@@ -14,18 +14,21 @@ public class Main {
     URL proxyUrl = new URL(System.getenv("FIXIE_URL"));
 
     String userInfo = proxyUrl.getUserInfo();
-    final String user = userInfo.substring(0, userInfo.indexOf(':'));
-    final String password = userInfo.substring(userInfo.indexOf(':') + 1);
+    if (userInfo != null && !userInfo.isEmpty()) {
+      final String user = userInfo.substring(0, userInfo.indexOf(':'));
+      final String password = userInfo.substring(userInfo.indexOf(':') + 1);
+
+      System.out.println("Setting SOCKS auth: " + user + ":" + password);
+      Authenticator.setDefault(new Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {
+          return new PasswordAuthentication(user, password.toCharArray());
+        }
+      });
+    }
 
     System.out.println("Using SOCKS proxy: " + proxyUrl.getHost() + ":" + String.valueOf(proxyUrl.getPort()));
     System.setProperty("socksProxyHost", proxyUrl.getHost());
     System.setProperty("socksProxyPort", String.valueOf(proxyUrl.getPort()));
-
-    Authenticator.setDefault(new Authenticator() {
-      protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication(user, password.toCharArray());
-      }
-    });
 
     String dbUrlVarName = "DATABASE_URL";
     if (args.length > 0) {

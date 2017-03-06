@@ -19,8 +19,8 @@ EOF
 bannerFile="/app/.ssh/banner.txt"
 echo "Welcome!" > ${bannerFile}
 
-heroku_exec_log_debug "Starting sshd on localhost:${localPort}..."
+echo "Starting sshd on localhost:${localPort}..."
 /usr/sbin/sshd -f $HOME/.ssh/sshd_config -o "Port ${localPort}" -o "Banner ${bannerFile}"
 
 echo "Starting Socks proxy on 9090"
-ssh -p ${localPort} -D 9090 localhost -N &
+ssh -o StrictHostKeyChecking=no -p ${localPort} -D 9090 localhost -N &

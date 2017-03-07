@@ -3,6 +3,7 @@ package com.example;
 import javax.net.SocketFactory;
 import java.io.IOException;
 import java.net.*;
+import java.security.Security;
 
 /**
  * @author Joe Kutner on 3/6/17.
@@ -10,6 +11,9 @@ import java.net.*;
  */
 public class Main {
   public static void main(String[] args) throws IOException, URISyntaxException {
+
+    Security.setProperty("networkaddress.cache.ttl", "5");
+    Security.setProperty("networkaddress.cache.negative.ttl", "0");
 
     URL proxyUrl = new URL(System.getenv("FIXIE_URL"));
 

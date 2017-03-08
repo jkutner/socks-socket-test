@@ -22,4 +22,5 @@ build/
 nbbuild/
 dist/
 nbdist/
-.nb-gradle/.env
+.nb-gradle/
+.env

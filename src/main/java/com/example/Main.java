@@ -45,13 +45,10 @@ public class Main {
     String host = dbUri.getHost();
 
     InetAddress address = InetAddress.getByName(host);
-    for(InetAddress addr : InetAddress.getAllByName(host)) {
-      System.out.println(addr.getHostAddress());
-    }
     System.out.println("Using IP address for Database: " + address.getHostAddress());
 
     System.out.println("Connecting (timeout=" + timeout + ")...");
-    socket.connect(new InetSocketAddress(address.getHostAddress(), dbUri.getPort()), timeout);
+    socket.connect(InetSocketAddress.createUnresolved(address.getHostAddress(), dbUri.getPort()), timeout);
     System.out.println("Success!");
   }
 }

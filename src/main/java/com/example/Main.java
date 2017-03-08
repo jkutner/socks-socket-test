@@ -40,15 +40,11 @@ public class Main {
     SocketFactory socketFactory = SocketFactory.getDefault();
     Socket socket = socketFactory.createSocket();
 
-    Integer timeout = (System.getenv("SOCKET_TIMEOUT") == null ? 0 : Integer.valueOf(System.getenv("SOCKET_TIMEOUT")));
-
-    String host = dbUri.getHost();
-
-    InetAddress address = InetAddress.getByName(host);
+    InetAddress address = InetAddress.getByName(dbUri.getHost());
     System.out.println("Using (" + address.getHostAddress() + ") address for " + host);
 
-    System.out.println("Connecting (timeout=" + timeout + ")...");
-    socket.connect(InetSocketAddress.createUnresolved(address.getHostAddress(), dbUri.getPort()), timeout);
+    System.out.println("Connecting...");
+    socket.connect(InetSocketAddress.createUnresolved(dbUri.getHost(), dbUri.getPort()), 10);
     System.out.println("Success!");
   }
 }

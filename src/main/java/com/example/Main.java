@@ -3,7 +3,6 @@ package com.example;
 import javax.net.SocketFactory;
 import java.io.IOException;
 import java.net.*;
-import java.security.Security;
 
 /**
  * @author Joe Kutner on 3/6/17.
@@ -11,10 +10,6 @@ import java.security.Security;
  */
 public class Main {
   public static void main(String[] args) throws IOException, URISyntaxException {
-
-    Security.setProperty("networkaddress.cache.ttl", "5");
-    Security.setProperty("networkaddress.cache.negative.ttl", "0");
-
     URL proxyUrl = new URL(System.getenv("FIXIE_URL"));
 
     String userInfo = proxyUrl.getUserInfo();
@@ -47,8 +42,13 @@ public class Main {
 
     Integer timeout = (System.getenv("SOCKET_TIMEOUT") == null ? 0 : Integer.valueOf(System.getenv("SOCKET_TIMEOUT")));
 
+    String host = dbUri.getHost();
+
+    InetAddress address = InetAddress.getByName(host);
+    System.out.println("Using IP address for Database: " + address.getHostAddress());
+
     System.out.println("Connecting (timeout=" + timeout + ")...");
-    socket.connect(new InetSocketAddress(dbUri.getHost(), dbUri.getPort()), timeout);
+    socket.connect(new InetSocketAddress(address.getHostAddress(), dbUri.getPort()), timeout);
     System.out.println("Success!");
   }
 }

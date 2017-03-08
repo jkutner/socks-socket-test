@@ -45,7 +45,7 @@ public class Main {
     String host = dbUri.getHost();
 
     InetAddress address = InetAddress.getByName(host);
-    System.out.println("Using IP address for Database: " + address.getHostAddress());
+    System.out.println("Using (" + address.getHostAddress() + ") address for " + host);
 
     System.out.println("Connecting (timeout=" + timeout + ")...");
     socket.connect(InetSocketAddress.createUnresolved(address.getHostAddress(), dbUri.getPort()), timeout);

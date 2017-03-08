@@ -41,7 +41,7 @@ public class Main {
     Socket socket = socketFactory.createSocket();
 
     InetAddress address = InetAddress.getByName(dbUri.getHost());
-    System.out.println("Using (" + address.getHostAddress() + ") address for " + host);
+    System.out.println("Using (" + address.getHostAddress() + ") address for " + dbUri.getHost());
 
     System.out.println("Connecting...");
     socket.connect(InetSocketAddress.createUnresolved(dbUri.getHost(), dbUri.getPort()), 10);

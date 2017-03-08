@@ -40,11 +40,8 @@ public class Main {
     SocketFactory socketFactory = SocketFactory.getDefault();
     Socket socket = socketFactory.createSocket();
 
-    InetAddress address = InetAddress.getByName(dbUri.getHost());
-    System.out.println("Using (" + address.getHostAddress() + ") address for " + dbUri.getHost());
-
     System.out.println("Connecting...");
-    socket.connect(InetSocketAddress.createUnresolved(dbUri.getHost(), dbUri.getPort()), 10);
+    socket.connect(InetSocketAddress.createUnresolved(dbUri.getHost(), dbUri.getPort()), 10000);
     System.out.println("Success!");
   }
 }
